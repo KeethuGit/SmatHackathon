@@ -1,3 +1,5 @@
+using BOM.API.Data;
+using BOM.API.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +33,9 @@ namespace BOM.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BOM.API", Version = "v1" });
             });
+
+            services.AddScoped<IBomContext, BomContext>();
+            services.AddScoped<IBomNodeRepository, BomNodeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
