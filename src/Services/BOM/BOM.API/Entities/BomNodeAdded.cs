@@ -9,6 +9,6 @@ namespace BOM.API.Entities
     {
         public Guid Id { get; set; }
         public DateTime CreatedDateTime { get; set; }
-        public BomNode data { get; set; }
+        public BomNode data { get; set; }  
     }
 }
