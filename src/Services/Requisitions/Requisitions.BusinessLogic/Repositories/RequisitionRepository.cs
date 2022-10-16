@@ -37,6 +37,11 @@ namespace Requisitions.BusinessLogic.Repositories
             await _context.Requisitions.InsertOneAsync(requisition);
         }
 
+        public void CreateReq(Requisition requisition)
+        {
+             _context.Requisitions.InsertOne(requisition);
+        }
+
         public async Task<bool> UpdateRequisition(Requisition requisition)
         {
             var updateResult = await _context

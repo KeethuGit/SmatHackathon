@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Collections;
 using Requisitions.BusinessLogic.Repositories;
+using Requisitions.BusinessLogic.Data;
 
 namespace RequisitionsServiceBusReciever
 {
@@ -56,8 +57,9 @@ namespace RequisitionsServiceBusReciever
                     LineItems = lineItems
 
                 };
-                
 
+                RequisitionRepository requisitionrRepo = new RequisitionRepository(new RequisitionContext());
+                requisitionrRepo.CreateReq(requisition);
                 receiver.CompleteMessageAsync(msg);
             }
             else

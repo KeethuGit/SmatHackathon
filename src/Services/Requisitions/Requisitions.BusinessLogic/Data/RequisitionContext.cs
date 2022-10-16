@@ -16,8 +16,16 @@ namespace Requisitions.BusinessLogic.Data
                 Requisitions = database.GetCollection<Requisition>(configuration.GetValue<string>("DatabaseSettings:CollectionName"));
                 
             }
+        public RequisitionContext()
+        {
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("RequisitionDb");
 
-            public IMongoCollection<Requisition> Requisitions { get; }
+            Requisitions = database.GetCollection<Requisition>("Requisition");
+
+        }
+
+        public IMongoCollection<Requisition> Requisitions { get; }
         
     }
 }
