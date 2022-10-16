@@ -9,6 +9,7 @@ using System.Linq;
 using System.Collections;
 using Requisitions.BusinessLogic.Repositories;
 using Requisitions.BusinessLogic.Data;
+using System.Threading;
 
 namespace RequisitionsServiceBusReciever
 {
@@ -18,7 +19,8 @@ namespace RequisitionsServiceBusReciever
         {
             //Console.WriteLine("Hello World!");
             var client = new ServiceBusClient("Endpoint=sb://smartmaterialsdigital.servicebus.windows.net/;SharedAccessKeyName=test-b-sender;SharedAccessKey=sj7yVQHKYGHGB1Q3ju9DnVilPsZcoaqNvcGwIeM0QrI=;EntityPath=bom");
-            var receiver = client.CreateReceiver("bom", "req-listner");
+            var receiver = client.CreateReceiver("bom", "req-listner");            
+            read: Console.WriteLine("Waiting for a new message...");
             var msg =   receiver.ReceiveMessageAsync().Result;
             if (msg != null)
             {
@@ -44,7 +46,7 @@ namespace RequisitionsServiceBusReciever
 
                 Requisition requisition = new Requisition()
                 {
-                    RequisitionName = "AUTOMATED_BOMREQ",
+                    RequisitionName = "AUTOMATED_BOMREQ1",
                     RequisitionType = "ORDER",
                     PurchaseIndicator = "YES",
                     ReqNodePath = "REQ/NODE/BOM",
@@ -61,12 +63,15 @@ namespace RequisitionsServiceBusReciever
                 RequisitionRepository requisitionrRepo = new RequisitionRepository(new RequisitionContext());
                 requisitionrRepo.CreateReq(requisition);
                 receiver.CompleteMessageAsync(msg);
+                Console.WriteLine("Requisition has been created successfully");
             }
             else
             {
-                Console.WriteLine("No Message received");
+                Console.WriteLine("No Message received"); 
+                
             }
-        
+            Thread.Sleep(10000);
+            goto read;
         }
     }
 }
