@@ -10,5 +10,7 @@ namespace BOM.API.Data
     public interface IBomContext
     {
         IMongoCollection<BomNode> BomNodes { get; }
+
+        IMongoCollection<BomPosition> BomPositions { get; }
     }
 }

@@ -15,10 +15,12 @@ namespace BOM.API.Entities
         [BsonElement("Name")]
         public string NodeName { get; set; }
 
-        [BsonElement("Type")]
+        [BsonElement("NodeType")]
         public string NodeType { get; set; }
 
         [BsonElement("ParentNode")]
         public string ParentNode { get; set; }
+
+        public List<BomPosition> positions { get; set; }
     }
 }

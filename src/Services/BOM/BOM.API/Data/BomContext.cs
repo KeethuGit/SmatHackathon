@@ -13,11 +13,13 @@ namespace BOM.API.Data
         public BomContext(IConfiguration config) 
         {
             var client = new MongoClient(config.GetValue<string>("DatabaseSettings:ConnectionString"));
-            var database = client.GetDatabase(config.GetValue<string>("DatabaseSettings.DatabaseName"));
+            var database = client.GetDatabase(config.GetValue<string>("DatabaseSettings:DatabaseName"));
 
-            BomNodes = database.GetCollection<BomNode>(config.GetValue<string>("DatabaseSettings.CollectionName"));
+            BomNodes = database.GetCollection<BomNode>(config.GetValue<string>("DatabaseSettings:CollectionName"));
+            BomPositions = database.GetCollection<BomPosition>(config.GetValue<string>("DatabaseSettings:CollectionName"));
 
         }
         public IMongoCollection<BomNode> BomNodes { get; }
+        public IMongoCollection<BomPosition> BomPositions { get; }
     }
 }

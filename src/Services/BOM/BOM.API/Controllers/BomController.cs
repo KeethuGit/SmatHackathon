@@ -1,4 +1,5 @@
-﻿using BOM.API.Entities;
+﻿using Azure.Messaging.ServiceBus;
+using BOM.API.Entities;
 using BOM.API.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace BOM.API.Controllers
@@ -50,6 +52,19 @@ namespace BOM.API.Controllers
         public async Task<ActionResult<BomNode>> CreateNode([FromBody] BomNode node)
         {
             await _repository.CreateNode(node);
+            var message = new BomNodeAdded
+            {
+                Id = Guid.NewGuid(),
+                CreatedDateTime = DateTime.UtcNow,
+                data = node
+            };
+
+            var connString = "Endpoint=sb://smartmaterialsdigital.servicebus.windows.net/;SharedAccessKeyName=test-b-sender;SharedAccessKey=sj7yVQHKYGHGB1Q3ju9DnVilPsZcoaqNvcGwIeM0QrI=";
+            var client = new ServiceBusClient(connString);
+            var sender = client.CreateSender("bom");
+            var body = JsonSerializer.Serialize(message);
+            var sbMessage = new ServiceBusMessage(body);
+            await sender.SendMessageAsync(sbMessage);
 
             return CreatedAtRoute("GetNode", new { id = node.Id }, node);
         }

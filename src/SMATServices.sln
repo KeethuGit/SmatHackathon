@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{4A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BOM", "BOM", "{90B9100D-51B0-4C11-8C8F-66ED0B71C317}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BOM.API", "Services\BOM\BOM.API\BOM.API.csproj", "{2E8B1E61-E425-4341-B1ED-2453A8372F0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BOM.API", "Services\BOM\BOM.API\BOM.API.csproj", "{2E8B1E61-E425-4341-B1ED-2453A8372F0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

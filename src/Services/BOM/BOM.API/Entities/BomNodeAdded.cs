@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace BOM.API.Entities
+{
+    public class BomNodeAdded
+    {
+        public Guid Id { get; set; }
+        public DateTime CreatedDateTime { get; set; }
+        public BomNode data { get; set; }
+    }
+}
