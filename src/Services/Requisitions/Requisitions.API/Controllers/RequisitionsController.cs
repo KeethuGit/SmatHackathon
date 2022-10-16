@@ -5,8 +5,14 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System;
-using Requisitions.API.Repositories;
-using Requisitions.API.Entities;
+using Requisitions.BusinessLogic.Repositories;
+using Requisitions.BusinessLogic.Entities;
+using Azure.Messaging.ServiceBus;
+using MongoDB.Bson.IO;
+using Newtonsoft.Json;
+using System.Text.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
+using Newtonsoft.Json.Linq;
 
 namespace Requisitions.API.Controllers
 {
@@ -49,9 +55,10 @@ namespace Requisitions.API.Controllers
         [ProducesResponseType(typeof(Requisition), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Requisition>> CreateRequisition([FromBody] Requisition requisition)
         {
+           
             await _repository.CreateRequisition(requisition);
-
             return CreatedAtRoute("GetRequisition", new { id = requisition.RId }, requisition);
+       
         }
 
         [HttpPut]

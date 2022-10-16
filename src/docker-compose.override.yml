@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  requisitiondb:
+    container_name: requisitiondb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+
+  requisitions.api:
+    container_name: requisitions.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=mongodb://requisitiondb:27017"
+    depends_on:
+      - requisitiondb
+    ports:
+      - "8000:80"

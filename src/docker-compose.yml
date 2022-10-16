@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  requisitiondb:
+    image: mongo
+
+  requisitions.api:
+    image: ${DOCKER_REGISTRY-}requisitionsapi
+    build:
+      context: .
+      dockerfile: Services/Requisitions/Requisitions.API/Dockerfile
+
+volumes:
+  mongo_data:
